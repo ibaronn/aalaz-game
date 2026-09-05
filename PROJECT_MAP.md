@@ -49,5 +49,4 @@ F:\BARONN/
 
 ## [ORPHANS & PENDING]
 - `<no orphans yet>`
-- PENDING: فحص نهائي كامل قبل الرفع لـ GitHub (اختبار يدوي للمحاكاة بلا أخطاء).
-- PENDING: الموافقة النهائية على M5 بالنشر عبر GitHub Actions → App-unsigned.ipa.
+- PENDING: الرفع لـ GitHub (تمّ الـ git init + commit، لم يُحدَّد remote بعد) → يفعّل Actions → `App-unsigned.ipa` Artifact.
