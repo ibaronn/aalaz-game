@@ -48,5 +48,4 @@ F:\BARONN/
 | M5 | منطق اللعب + ثنائية اللغة + حفظ التقدم | ✅ مكتمل | main.js: حروف مبعثرة، تحقق، تلميحات/خلط/مسح، محاولات، قصاصات، حفظ في localStorage — الأقواس متوازنة وكل المراجع موجودة |
 
 ## [ORPHANS & PENDING]
-- `<no orphans yet>`
-- PENDING: الرفع لـ GitHub (تمّ الـ git init + commit، لم يُحدَّد remote بعد) → يفعّل Actions → `App-unsigned.ipa` Artifact.
+- PENDING: إصلاح بناء xcodebuild في Actions — Capacitor 8 يولّد `App.xcodeproj` (SPM) بدل `App.xcworkspace`؛ عدّلت بالبديل. بانتظار push وإعادة المحاولة.
