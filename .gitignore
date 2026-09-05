@@ -1,0 +1,5 @@
+node_modules/
+DerivedData/
+build/
+*.ipa
+.DS_Store

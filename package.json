@@ -1,0 +1,17 @@
+{
+  "name": "aalaz-game",
+  "version": "1.0.0",
+  "description": "لعبة ألغاز كلمات متنوعة: وصله + كلمات متقاطعة، 50 مرحلة، ثنائية اللغة، تلميحات بالصور",
+  "private": true,
+  "scripts": {
+    "sync": "cap sync ios",
+    "add:ios": "cap add ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/ios": "^8.5.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.0"
+  }
+}

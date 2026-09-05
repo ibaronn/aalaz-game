@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1e1b4b">
+  <title>العاز</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- خلفية زخرفية متحركة -->
+  <div class="bg-decor" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+    <span class="spark spark-1">✦</span>
+    <span class="spark spark-2">✧</span>
+    <span class="spark spark-3">✦</span>
+  </div>
+
+  <!-- ===== الشاشة 1: ترحيب / اختيار اللغة ===== -->
+  <section id="screen-welcome" class="screen screen--active">
+    <div class="welcome-card card">
+      <div class="logo">🧩</div>
+      <h1 class="game-title">العاز</h1>
+      <p class="game-subtitle">ألغاز كلمات متنوعة حول العالم!</p>
+      <div class="lang-picker">
+        <button class="btn btn--lang" data-lang="ar">🇸🇦 العربية</button>
+        <button class="btn btn--lang" data-lang="en">🇬🇧 English</button>
+      </div>
+      <p class="welcome-note">50 مرحلة · تلميحات بالصور · تقدم محفوظ</p>
+    </div>
+  </section>
+
+  <!-- ===== الشاشة 2: اختيار المستوى ===== -->
+  <section id="screen-levels" class="screen">
+    <div class="levels-header">
+      <button id="btn-back-home" class="icon-btn" aria-label="رجوع">←</button>
+      <h2 id="levels-title">اختر المرحلة</h2>
+      <span id="progress-badge" class="badge">0/50</span>
+    </div>
+    <div id="progress-bar-wrap" class="progress-wrap">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+    <div id="levels-grid" class="levels-grid">
+      <!-- تُبنى بالأحرف JS -->
+    </div>
+  </section>
+
+  <!-- ===== الشاشة 3: اللعب ===== -->
+  <section id="screen-game" class="screen">
+    <div class="game-header">
+      <button id="btn-back-levels" class="icon-btn" aria-label="رجوع">←</button>
+      <h2 id="game-level-title">المرحلة 1</h2>
+      <span id="game-attempts" class="badge">3</span>
+    </div>
+
+    <div class="game-card card">
+      <div id="image-hint-wrap" class="image-hint-wrap">
+        <img id="image-hint" src="" alt="تلميح بالصورة">
+      </div>
+      <p id="question-text" class="question-text">السؤال</p>
+
+      <!-- خانات الإجابة -->
+      <div id="answer-slots" class="answer-slots"></div>
+
+      <!-- الحروف المبعثرة -->
+      <div id="letter-bank" class="letter-bank"></div>
+
+      <!-- أدوات -->
+      <div class="game-tools">
+        <button id="btn-hint" class="btn btn--ghost">💡 تلميح</button>
+        <button id="btn-shuffle" class="btn btn--ghost">🔀 خلط</button>
+        <button id="btn-clear" class="btn btn--ghost">🗑 مسح</button>
+        <button id="btn-check" class="btn btn--primary">تحقق ✓</button>
+      </div>
+
+      <div id="hint-text" class="hint-text"></div>
+    </div>
+  </section>
+
+  <!-- ===== نافذة إتمام مرحلة ===== -->
+  <div id="modal-stage-clear" class="modal-overlay" hidden>
+    <div class="modal card">
+      <div class="modal-emoji">🎉</div>
+      <h3 id="modal-clear-title">أحسنت!</h3>
+      <p id="modal-clear-text">أنت أتممت المرحلة بنجاح</p>
+      <button id="btn-next-level" class="btn btn--primary">المرحلة التالية →</button>
+    </div>
+  </div>
+
+  <!-- ===== نافذة إتمام اللعبة ===== -->
+  <div id="modal-game-clear" class="modal-overlay" hidden>
+    <div class="modal card">
+      <div class="modal-emoji">🏆</div>
+      <h3 id="modal-game-title">مذهل!</h3>
+      <p id="modal-game-text">أنت أتممت كل المراحل!</p>
+      <button id="btn-restart-game" class="btn btn--primary">العب من جديد ↻</button>
+    </div>
+  </div>
+
+  <!-- ===== رسالة فشل ===== -->
+  <div id="modal-wrong" class="modal-overlay" hidden>
+    <div class="modal card modal--wrong">
+      <div class="modal-emoji">🤔</div>
+      <h3 id="modal-wrong-title">غير صحيحة!</h3>
+      <p id="modal-wrong-text">حاول مجدداً</p>
+      <button id="btn-wrong-ok" class="btn btn--ghost">حسناً</button>
+    </div>
+  </div>
+
+  <!-- حاوي الحلوى الاحتفالية -->
+  <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+
+  <script src="js/levels.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
