@@ -26,7 +26,7 @@ jobs:
       - name: Sync web assets to native project
         run: npx cap sync ios
 
-      - name: Build unsigned IPA
+      - name: Build unsigned app
         working-directory: ios/App
         run: |
           xcodebuild \
@@ -36,47 +36,33 @@ jobs:
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
             -derivedDataPath build \
-            -resolvePackageDependencies \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            archive -archivePath build/App.xcarchive
+            build
 
       - name: Post-build diagnostics
         working-directory: ios/App
         if: ${{ always() }}
         run: |
-          echo "=== xcarchive locations ==="
-          find . .build "$HOME/Library/Developer/Xcode/Archives" "$HOME/Library/Developer/Xcode/DerivedData" -name '*.xcarchive' -type d 2>/dev/null | head -n 20
           echo "=== app bundles ==="
-          find . .build "$HOME/Library/Developer/Xcode/Archives" "$HOME/Library/Developer/Xcode/DerivedData" -name '*.app' -type d 2>/dev/null | head -n 20
-          echo "=== build dir top ==="
-          ls -la build 2>/dev/null || echo "(no build dir)"
+          find build -name '*.app' -type d 2>/dev/null | head -n 20
+          echo "=== Release-iphoneos ==="
+          ls -la build/Build/Products/Release-iphoneos 2>/dev/null || echo "(no Release-iphoneos dir)"
 
       - name: Create unsigned IPA
         working-directory: ios/App
         run: |
           set -e
-          ROOTS="$PWD/build $HOME/Library/Developer/Xcode/Archives $HOME/Library/Developer/Xcode/DerivedData"
-          ARCHIVE="$(find $ROOTS -name '*.xcarchive' -type d 2>/dev/null | head -n 1)"
-          APP_PATH=""
-          if [ -n "$ARCHIVE" ]; then
-            APP_PATH="$(find "$ARCHIVE/Products" -name '*.app' -type d 2>/dev/null | head -n 1)"
+          APP_PATH="$(find build/Build/Products -name '*.app' -type d 2>/dev/null | head -n 1)"
+          if [ -z "$APP_PATH" ]; then
+            APP_PATH="$(find build -name '*.app' -type d 2>/dev/null | head -n 1)"
           fi
           if [ -z "$APP_PATH" ]; then
-            APP_PATH="$(find $ROOTS -path '*/Products/*.app' -type d 2>/dev/null | head -n 1)"
-          fi
-          if [ -z "$APP_PATH" ]; then
-            APP_PATH="$(find $ROOTS -name '*.app' -type d 2>/dev/null | head -n 1)"
-          fi
-          if [ -z "$APP_PATH" ]; then
-            echo "ERROR: no .app bundle found anywhere. Searching:"
-            echo "$ROOTS"
-            find build -name '*.app' -o -name '*.xcarchive' 2>/dev/null || true
-            find "$HOME/Library/Developer/Xcode" -name '*.app' -o -name '*.xcarchive' 2>/dev/null | head -n 40 || true
+            echo "ERROR: no .app bundle under build"
+            find build -maxdepth 5 2>/dev/null | head -n 80
             exit 1
           fi
-          echo "Archive: $ARCHIVE"
           echo "App: $APP_PATH"
           mkdir -p build/Payload
           cp -R "$APP_PATH" build/Payload/
