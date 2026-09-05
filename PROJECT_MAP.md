@@ -31,7 +31,7 @@ F:\BARONN/
 │   ├── assets/images/      ← الصور المحلية
 │   └── icons/              ← أيقونات التطبيق
 ├── package.json            ← Capacitor (للبناء في Actions فقط)
-├── capacitor.config.ts
+├── capacitor.config.json
 ├── .github/workflows/build-ipa.yml
 └── PROJECT_MAP.md
 ```
