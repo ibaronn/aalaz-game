@@ -45,8 +45,19 @@ jobs:
       - name: Create unsigned IPA
         working-directory: ios/App
         run: |
+          set -e
+          APP_PATH="$(find build -path '*/Products/*.app' -type d | head -n 1)"
+          if [ -z "$APP_PATH" ]; then
+            APP_PATH="$(find build -name '*.app' -type d | head -n 1)"
+          fi
+          if [ -z "$APP_PATH" ]; then
+            echo "ERROR: no .app bundle found under ios/App/build"
+            find build -maxdepth 4 | head -n 60
+            exit 1
+          fi
+          echo "Found app at: $APP_PATH"
           mkdir -p build/Payload
-          cp -r build/App.xcarchive/Products/Applications/App.app build/Payload/
+          cp -R "$APP_PATH" build/Payload/
           cd build
           zip -r App-unsigned.ipa Payload
 
